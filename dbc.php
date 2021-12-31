@@ -13,16 +13,14 @@
 //④詳細ページに表示する
 //HTMLにPHPを埋め込んで表示
 
-
 //1.データベース接続
 //引数：なし
 //返り値：接続結果を返す
 function dbConnect(){
     
-    $dsn = $_ENV["DSN"];
-    $user = $_ENV["USER"];
-    $pass = $_ENV["PASSWORD"];
-
+    $dsn = $_ENV['DSN'];
+    $user = $_ENV['USER'];
+    $pass = $_ENV['PASSWORD'];
 
     try{
         $dbh = new PDO($dsn, $user, $pass, [
@@ -51,8 +49,7 @@ function getAllBlog(){
     return $result;
     $dbh = null;
 }
-//取得したデータを表示
-$blogData = getAllBlog();
+
 
 //3.カテゴリー名を表示
 //引数：数字
@@ -68,32 +65,31 @@ function setCategoryName($category){
 
 }
 
+
+// 引数：$id
+// 返り値：$result
+function getBlog($id){
+    if(empty($id)){
+        exit('IDが不正です');
+      }
+      
+      $dbh = dbConnect();
+      
+      //SQL準備
+      $stmt = $dbh->prepare('SELECT * FROM blog Where id = :id');
+      $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);
+      //SQL実行
+      $stmt->execute();
+      //結果を取得
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+      if(!$result){
+        exit('ブログがありません');
+      }
+
+      return $result;
+
+
+}
+
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ブログ一覧</title>
-</head>
-<body>
-    <h2>ブログ一覧</h2>
-    <table>
-        <tr>
-            <th>No</th>
-            <th>タイトル</th>
-            <th>カテゴリー</th>
-        </tr>
-        <?php foreach($blogData as $column): ?>
-        <td><?php echo $column['id'] ?></td>
-        <td><?php echo $column['title'] ?></td>
-        <td><?php echo  setCategoryName($column['category'])?></td>
-        <td><a href="/detail.php?id=<?php echo $column['id']?>">詳細</a></td>
-        <?php endforeach; ?>
-    </table>
-    
-</body>
-</html>
