@@ -1,14 +1,5 @@
 <?php
 require_once('dbc.php');
-//①フォームから値を渡す
-//②フォームから値を受け取る
-//③バリデーションする
-//④トランズアクションする
-//⑤データをDBに登録する
-
-
-
-
 $blogData = Blog\Dbc\getAllBlog();
 
 ?>
