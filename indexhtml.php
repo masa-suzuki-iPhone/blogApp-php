@@ -1,11 +1,7 @@
 <?php
 require_once('dbc.php');
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 //取得したデータを表示
-$blogData = getAllBlog();
-
-
+$blogData = Blog\Dbc\getAllBlog();
 
 ?>
 
@@ -28,7 +24,7 @@ $blogData = getAllBlog();
         <?php foreach($blogData as $column): ?>
         <td><?php echo $column['id'] ?></td>
         <td><?php echo $column['title'] ?></td>
-        <td><?php echo  setCategoryName($column['category'])?></td>
+        <td><?php echo  Blog\Dbc\setCategoryName($column['category'])?></td>
         <td><a href="/detail.php?id=<?php echo $column['id']?>">詳細</a></td>
         <?php endforeach; ?>
     </table>
