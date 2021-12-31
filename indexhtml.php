@@ -1,9 +1,15 @@
 <?php
 require_once('dbc.php');
-//取得したデータを表示
-use Blog\Dbc;
+//①フォームから値を渡す
+//②フォームから値を受け取る
+//③バリデーションする
+//④トランズアクションする
+//⑤データをDBに登録する
 
-$blogData = Dbc\getAllBlog();
+
+
+
+$blogData = Blog\Dbc\getAllBlog();
 
 ?>
 
@@ -17,6 +23,7 @@ $blogData = Dbc\getAllBlog();
 </head>
 <body>
     <h2>ブログ一覧</h2>
+    <p><a href="/form.html">新規作成</a></p>
     <table>
         <tr>
             <th>No</th>
@@ -26,7 +33,7 @@ $blogData = Dbc\getAllBlog();
         <?php foreach($blogData as $column): ?>
         <td><?php echo $column['id'] ?></td>
         <td><?php echo $column['title'] ?></td>
-        <td><?php echo Dbc\setCategoryName($column['category'])?></td>
+        <td><?php echo Blog\Dbc\setCategoryName($column['category'])?></td>
         <td><a href="/detail.php?id=<?php echo $column['id']?>">詳細</a></td>
         <?php endforeach; ?>
     </table>

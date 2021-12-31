@@ -2,8 +2,8 @@
 //require_onceを使う
 require_once('dbc.php');
 //namespaceを設定
-
 //useを使う
+
 
 $id = $_GET['id'];
 
