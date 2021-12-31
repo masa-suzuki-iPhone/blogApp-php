@@ -1,7 +1,9 @@
 <?php
 require_once('dbc.php');
 //取得したデータを表示
-$blogData = Blog\Dbc\getAllBlog();
+use Blog\Dbc;
+
+$blogData = Dbc\getAllBlog();
 
 ?>
 
@@ -24,7 +26,7 @@ $blogData = Blog\Dbc\getAllBlog();
         <?php foreach($blogData as $column): ?>
         <td><?php echo $column['id'] ?></td>
         <td><?php echo $column['title'] ?></td>
-        <td><?php echo  Blog\Dbc\setCategoryName($column['category'])?></td>
+        <td><?php echo Dbc\setCategoryName($column['category'])?></td>
         <td><a href="/detail.php?id=<?php echo $column['id']?>">詳細</a></td>
         <?php endforeach; ?>
     </table>
