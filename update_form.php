@@ -23,7 +23,7 @@ $publish_status = (int)$result['publish_status']
 <body>
     <h2>ブログ更新フォーム</h2>
     <form action="blog_update.php" method="POST">
-        <input type="hidden" name = "id" value ="<?php echo $id ?>"
+        <input type="hidden" name = "id" value ="<?php echo $id ?>">
         <p>ブログタイトル：</p>
         <input type="text" name="title" value="<?php echo $title ?>">
         <p>ブログ本文：</p>

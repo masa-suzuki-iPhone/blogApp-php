@@ -19,8 +19,9 @@ Class Blog extends Dbc
   }
 
   public function blogCreate($blogs){
-    $sql = ' INSERT INTO blog(title, content, category, publish_status)
-     VALUES (:title, :content, :category, :publish_status)';
+    $sql = "INSERT INTO 
+        $this->table_name(title, content, category, publish_status)
+    VALUES (:title, :content, :category, :publish_status)";
 
 
     $dbh = $this->dbConnect();
@@ -40,6 +41,35 @@ Class Blog extends Dbc
     exit($e);
 
     }
+  }
+
+  public function blogUpdate($blogs){
+    $sql =   "UPDATE $this->table_name SET 
+                 title = :title, content = :content, category = :category , publish_status = :publish_status
+             WHERE 
+                 id = :id";
+
+
+    $dbh = $this->dbConnect();
+    $dbh->beginTransaction();
+    try {
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':title',$blogs['title'], PDO::PARAM_STR);
+    $stmt->bindValue(':content',$blogs['content'], PDO::PARAM_STR);
+    $stmt->bindValue(':category',$blogs['category'], PDO::PARAM_INT);
+    $stmt->bindValue(':publish_status',$blogs['publish_status'], PDO::PARAM_INT);
+    $stmt->bindValue(':id',$blogs['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $dbh->commit();
+    echo 'ブログを更新しました！！';
+
+    } catch (PDOException $e){
+    $dbh->rollBack();
+    exit($e);
+
+    }
+
+    
   }
   
   //ブログのバリデーション
@@ -66,9 +96,6 @@ Class Blog extends Dbc
     }
   
   }
-
-
-
 
 }
 
