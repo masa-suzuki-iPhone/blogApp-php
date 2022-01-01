@@ -1,7 +1,7 @@
 <?php
 
 require_once('dbc.php');
-$dbh = new Dbc();
+$dbc = new Dbc();
 
 $blogs = $_POST;
 var_dump($blogs);

@@ -1,7 +1,7 @@
 <?php
 //require_onceを使う
 require_once('dbc.php');
-$dbh = new Dbc();
+$dbc = new Dbc();
 //namespaceを設定
 //useを使う
 
