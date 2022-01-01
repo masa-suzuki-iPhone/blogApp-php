@@ -1,6 +1,7 @@
 <?php
 
 require_once('dbc.php');
+$dbh = new Dbc();
 
 $blogs = $_POST;
 var_dump($blogs);
@@ -29,7 +30,7 @@ $sql = ' INSERT INTO blog(title, content, category, publish_status)
          VALUES (:title, :content, :category, :publish_status)';
 
 
-$dbh = Blog\Dbc\dbConnect();
+$dbh = $dbc->dbConnect();
 $dbh->beginTransaction();
 try {
   $stmt = $dbh->prepare($sql);
