@@ -5,9 +5,6 @@ $blog = new Blog();
 //namespaceを設定
 //useを使う
 
-
-$id = $_GET['id'];
-
 $result = $blog->getById($_GET['id']);
 
 ?>
@@ -27,5 +24,6 @@ $result = $blog->getById($_GET['id']);
   <p>カテゴリ：<?php echo $blog->setCategoryName($result['category'])?></p>
   <hr>
   <p>本文：<?php echo $result['content']?></p>
+  <button type="button" onclick="history.back()">戻る</button>
 </body>
 </html>

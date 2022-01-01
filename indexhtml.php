@@ -33,6 +33,8 @@ function h($s){
             <td><?php echo h($column['post_at'])?></td>
             <td><a href="/detail.php?id=<?php echo h($column['id'])?>">詳細</a></td>
             <td><a href="/update_form.php?id=<?php echo h($column['id'])?>">編集</a></td>
+            <td><a href="/blog_delete.php?id=<?php echo h($column['id'])?>">削除</a></td>
+
         </tr>
         <?php endforeach; ?>
     </table>

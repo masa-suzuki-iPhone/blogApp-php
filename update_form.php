@@ -40,6 +40,7 @@ $publish_status = (int)$result['publish_status']
         <br>
         <input type="submit" value="送信">
     </form>
+    <button type="button" onclick="history.back()">戻る</button>
     
 </body>
 </html>
