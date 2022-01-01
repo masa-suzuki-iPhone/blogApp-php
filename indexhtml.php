@@ -3,6 +3,10 @@ require_once('blog.php');
 $blog = new Blog();
 $blogData = $blog->getAll();
 
+function h($s){
+    return htmlspecialchars($s, ENT_QUOTES,"UTF-8");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +28,11 @@ $blogData = $blog->getAll();
         </tr>
         <?php foreach($blogData as $column): ?>
         <tr>
-            <td><?php echo $column['title'] ?></td>
-            <td><?php echo $blog->setCategoryName($column['category'])?></td>
-            <td><?php echo $column['post_at'] ?></td>
-            <td><a href="/detail.php?id=<?php echo $column['id']?>">詳細</a></td>
-            <td><a href="/update_form.php?id=<?php echo $column['id']?>">編集</a></td>
+            <td><?php echo h($column['title'] )?></td>
+            <td><?php echo h($blog->setCategoryName($column['category']))?></td>
+            <td><?php echo h($column['post_at'])?></td>
+            <td><a href="/detail.php?id=<?php echo h($column['id'])?>">詳細</a></td>
+            <td><a href="/update_form.php?id=<?php echo h($column['id'])?>">編集</a></td>
         </tr>
         <?php endforeach; ?>
     </table>
