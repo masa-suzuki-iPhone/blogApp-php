@@ -1,11 +1,18 @@
 <?php
+//①staticを使う
+//②アクセス修飾子をつける
+//③コンストラクタを理解する
+//④継承を使う
+
 
 Class Dbc
 {
+    protected $table_name;
+
     //1.データベース接続
     //引数：なし
     //返り値：接続結果を返す
-    function dbConnect(){
+    protected function dbConnect(){
         
         $dsn = $_ENV['DSN'];
         $user = $_ENV['USER'];
@@ -27,10 +34,10 @@ Class Dbc
     //2.データを取得する
     //引数：なし
     //返り値：取得したデータ
-    function getAllBlog(){ 
+    public function getAll(){ 
         $dbh = $this->dbConnect();     
         //①SQLの準備
-        $sql = 'SELECT * FROM blog';
+        $sql = "SELECT * FROM $this->table_name";
         //②SQLの実行
         $stmt = $dbh->query($sql);
         //③SQLの結果を受け取る
@@ -39,25 +46,9 @@ Class Dbc
         $dbh = null;
     }
 
-
-    //3.カテゴリー名を表示
-    //引数：数字
-    //返り値：カテゴリーの文字列
-    function setCategoryName($category){
-        if ($category === '1'){
-            return '日常';
-        } elseif ($category == '2'){
-            return'プログラミング';
-        } else{
-            return'その他';
-        }
-
-    }
-
-
     // 引数：$id
     // 返り値：$result
-    function getBlog($id){
+    public function getById($id){
         if(empty($id)){
             exit('IDが不正です');
         }
@@ -65,7 +56,7 @@ Class Dbc
         $dbh = $this->dbConnect();
         
         //SQL準備
-        $stmt = $dbh->prepare('SELECT * FROM blog Where id = :id');
+        $stmt = $dbh->prepare("SELECT * FROM $this->table_name Where id = :id");
         $stmt->bindValue(':id', (int)$id, \PDO::PARAM_INT);
         //SQL実行
         $stmt->execute();
@@ -78,6 +69,7 @@ Class Dbc
 
         return $result;
     }
+
 }
     // 詳細画面を表示する流れ
     //①一覧画面からブログのidを送る
